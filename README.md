@@ -41,11 +41,19 @@ tracker credentials, as described in the future tool guide.
    and `scripts/publish-homebrew.py`, explicitly selecting
    `troll-master/orphisme` as the source and `troll-master/homebrew-tap` as the tap.
    The publisher requires a public tap and anonymously verifies the public stable
-   source Release and its assets before updating the Formula and tool guide.
-4. Verify Homebrew fetch, checksum validation, installation and CLI behavior in
+   source Release and its assets before pushing a dedicated
+   `homebrew/orphisme/vX.Y.Z` branch and opening or reusing a PR to `main`.
+   The Tap token needs Contents and Pull requests read/write access; checking or
+   changing existing token permissions is a separate administrator action.
+4. Review the PR's latest head, the current `main` version, URLs, checksums and
+   diff, then manually merge it. The publisher never pushes directly to protected
+   `main`, force-pushes, or merges automatically. Retries reuse the proposal and
+   stop if it contains manual changes. Withdraw stale proposals if a newer
+   release has already been distributed.
+5. Verify Homebrew fetch, checksum validation, installation and CLI behavior in
    clean environments without GitHub credentials or pre-existing download caches.
    Record the results for each supported platform.
-5. Update this README's preparation status and add verified installation and
+6. Update this README's preparation status and add verified installation and
    update instructions. The publisher preserves an existing README, so this
    shared catalog must be updated separately.
 
