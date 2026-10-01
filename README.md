@@ -23,7 +23,8 @@ The first verified Orphisme release will add:
 - `docs/orphisme.md`: installation, setup, upgrade and uninstall instructions.
 
 Executables and their checksum files belong to the source repository's Release,
-not this tap. The planned targets are macOS and Linux, each on ARM64 and x86_64.
+not this tap. The initial Orphisme release targets macOS on Apple Silicon (ARM64) and Intel
+(x86_64). Linux support is deferred.
 Downloads will use Homebrew's standard HTTPS downloader without a GitHub login or
 download token. Running Orphisme will require Git, an authenticated Codex CLI and
 tracker credentials, as described in the future tool guide.
@@ -34,7 +35,7 @@ tracker credentials, as described in the future tool guide.
    both are anonymously readable.
 2. Select the initial stable version using the source project's release rules
    and generator constraints. Publish a tested source Release containing the
-   four target executables and their four checksum files.
+   two macOS executables and their two checksum files.
 3. Use the source project's maintained
    [Homebrew release procedure](https://github.com/troll-master/orphisme/blob/main/docs/private-homebrew.md)
    and `scripts/publish-homebrew.py`, explicitly selecting
