@@ -6,13 +6,16 @@ Homebrew distribution repository for tools maintained by
 ## Status
 
 This repository is being prepared for public distribution and is currently
-private. It does not yet contain an installable Formula. Orphisme's first public
-release version has not been selected, and no public release assets are available.
+private. It does not yet contain an installable Formula. Orphisme's initial version
+is **0.1.0** (`v0.1.0`), and its macOS Release assets have been prepared in the private
+source repository. **Public downloads and Homebrew installation are not yet available.**
 
-The planned source repository is
+The selected source repository is
 [troll-master/orphisme](https://github.com/troll-master/orphisme), which is also
-currently private. The Homebrew tap name will be `troll-master/tap`.
-Installation instructions will be added after public release verification.
+currently private. The Homebrew tap name is `troll-master/tap`.
+After both repositories are public, the Formula is merged, and anonymous installation
+has been verified, the installation command will be `brew install troll-master/tap/orphisme`.
+Wait for the maintainers' availability announcement before running it.
 
 ## Distribution layout
 
@@ -33,9 +36,9 @@ tracker credentials, as described in the future tool guide.
 
 1. Obtain approval to make the source repository and this tap public, then verify
    both are anonymously readable.
-2. Select the initial stable version using the source project's release rules
-   and generator constraints. Publish a tested source Release containing the
-   two macOS executables and their two checksum files.
+2. Verify the prepared `v0.1.0` source Release contains the tested two macOS
+   executables and their two checksum files. Confirm the tag is `v0.1.0` and the
+   embedded version is `0.1.0`, then verify anonymous asset downloads after publication.
 3. Use the source project's maintained
    [Homebrew release procedure](https://github.com/troll-master/orphisme/blob/main/docs/private-homebrew.md)
    and `scripts/publish-homebrew.py`, explicitly selecting
