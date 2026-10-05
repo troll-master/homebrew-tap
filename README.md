@@ -3,64 +3,60 @@
 Homebrew distribution repository for tools maintained by
 [troll-master](https://github.com/troll-master).
 
-## Status
+## Install Orphisme
 
-This repository is being prepared for public distribution and is currently
-private. It does not yet contain an installable Formula. Orphisme's initial version
-is **0.1.0** (`v0.1.0`), and its macOS Release assets have been prepared in the private
-source repository. **Public downloads and Homebrew installation are not yet available.**
+Orphisme v0.1.3 supports macOS on Apple Silicon (ARM64) and Intel (x86_64).
+Linux distribution is not available.
 
-The selected source repository is
-[troll-master/orphisme](https://github.com/troll-master/orphisme), which is also
-currently private. The Homebrew tap name is `troll-master/tap`.
-After both repositories are public, the Formula is merged, and anonymous installation
-has been verified, the installation command will be `brew install troll-master/tap/orphisme`.
-Wait for the maintainers' availability announcement before running it.
+```sh
+brew install troll-master/tap/orphisme
+orphisme --help
+orphisme setup
+```
+
+Downloads use the [public binaries in this Tap's Releases](https://github.com/troll-master/homebrew-tap/releases)
+and Homebrew's standard HTTPS downloader with SHA-256 verification. No GitHub login,
+invitation or download token is required. Erlang/OTP and Elixir are bundled.
+To run tasks, install and authenticate the Codex CLI and configure tracker credentials.
+Git is installed as a Formula dependency.
+
+See [installation, setup, migration and uninstall](docs/orphisme.md).
+If an old manual or private-Tap installation exists, stop that service and follow the
+migration guide before installing. Preserve its settings and managed workspaces.
+
+## Update
+
+```sh
+brew update
+brew upgrade troll-master/tap/orphisme
+```
+
+After active tasks finish, run `orphisme restart` to start using the new version.
+The service refuses to restart while work is active. Settings, repository registrations,
+workspaces and older extracted runtimes are retained.
 
 ## Distribution layout
 
-The first verified Orphisme release will add:
+- `Formula/orphisme.rb` selects the binary for the Mac's CPU and verifies its SHA-256.
+- `docs/orphisme.md` explains installation, configuration and lifecycle commands.
+- Each Orphisme Release here contains two macOS executables and their two checksum files.
+- Source and release records remain in private [troll-master/orphisme](https://github.com/troll-master/orphisme).
+  Source access is not required to download or install binaries.
 
-- `Formula/orphisme.rb`: a Formula with fixed source Release URLs and verified
-  SHA-256 checksums.
-- `docs/orphisme.md`: installation, setup, upgrade and uninstall instructions.
+The binaries do not have an Apple Developer ID signature or Apple notarization.
+Apple Silicon binaries retain the required ad-hoc signature. Read bundled license and
+attribution notices with `orphisme licenses`; Homebrew also installs them under
+`$(brew --prefix orphisme)/share/orphisme/LICENSES.txt`.
 
-Executables and their checksum files belong to the source repository's Release,
-not this tap. The initial Orphisme release targets macOS on Apple Silicon (ARM64) and Intel
-(x86_64). Linux support is deferred.
-Downloads will use Homebrew's standard HTTPS downloader without a GitHub login or
-download token. Running Orphisme will require Git, an authenticated Codex CLI and
-tracker credentials, as described in the future tool guide.
+## Maintainers
 
-## Before the first public distribution
+Verify both CPU builds, CLI lifecycle checks and upgrades before publishing a new version.
+Upload the same verified binaries to the source Release and a new public Release here,
+then use the source repository's Homebrew publisher with this Tap as `--release-repository`.
+The publisher verifies public assets anonymously and proposes a Formula and guide PR.
+Review and merge that PR manually; it never pushes directly to main or auto-merges.
+This shared README is maintained separately from generated Formulae and guides.
 
-1. Obtain approval to make the source repository and this tap public, then verify
-   both are anonymously readable.
-2. Verify the prepared `v0.1.0` source Release contains the tested two macOS
-   executables and their two checksum files. Confirm the tag is `v0.1.0` and the
-   embedded version is `0.1.0`, then verify anonymous asset downloads after publication.
-3. Use the source project's maintained
-   [Homebrew release procedure](https://github.com/troll-master/orphisme/blob/main/docs/private-homebrew.md)
-   and `scripts/publish-homebrew.py`, explicitly selecting
-   `troll-master/orphisme` as the source and `troll-master/homebrew-tap` as the tap.
-   The publisher requires a public tap and anonymously verifies the public stable
-   source Release and its assets before pushing a dedicated
-   `homebrew/orphisme/vX.Y.Z` branch and opening or reusing a PR to `main`.
-   The Tap token needs Contents and Pull requests read/write access; checking or
-   changing existing token permissions is a separate administrator action.
-4. Review the PR's latest head, the current `main` version, URLs, checksums and
-   diff, then manually merge it. The publisher never pushes directly to protected
-   `main`, force-pushes, or merges automatically. Retries reuse the proposal and
-   stop if it contains manual changes. Withdraw stale proposals if a newer
-   release has already been distributed.
-5. Verify Homebrew fetch, checksum validation, installation and CLI behavior in
-   clean environments without GitHub credentials or pre-existing download caches.
-   Record the results for each supported platform.
-6. Update this README's preparation status and add verified installation and
-   update instructions. The publisher preserves an existing README, so this
-   shared catalog must be updated separately.
-
-This tap starts with new Git history. Prior private repository history, tags,
-Release assets and custom downloaders are not imported. Future tool publications
-should update their own Formula and guide while preserving other tools and this
-shared README.
+Keep existing tags and Releases unchanged. Public binary tags use this Tap's own history;
+private source history is not imported. Other tools' Formulae and shared catalog entries
+must be preserved during future updates.
