@@ -5,7 +5,7 @@ Homebrew distribution repository for tools maintained by
 
 ## Install Orphisme
 
-Orphisme v0.1.3 supports macOS on Apple Silicon (ARM64) and Intel (x86_64).
+Orphisme v0.0.4 supports macOS on Apple Silicon (ARM64) and Intel (x86_64).
 Linux distribution is not available.
 
 ```sh
