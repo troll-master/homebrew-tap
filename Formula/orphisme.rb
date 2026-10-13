@@ -3,18 +3,18 @@
 class Orphisme < Formula
   desc "Coordinate coding agents across local repositories"
   homepage "https://github.com/troll-master/orphisme"
-  version "0.0.4"
+  version "0.0.5"
   version_scheme 1
 
   on_macos do
     on_arm do
-      url "https://github.com/troll-master/homebrew-tap/releases/download/v0.0.4/orphisme-v0.0.4-macos_arm64"
-      sha256 "706093abfa161bacb4713dfa4385d52ff9acc7ba20c79fc020f4aa20eaaa60c4"
+      url "https://github.com/troll-master/homebrew-tap/releases/download/v0.0.5/orphisme-v0.0.5-macos_arm64"
+      sha256 "a02929adede0ac9a5e27e32ded81a2719542c4444bdddaaa6d23d72f8a9a81be"
     end
 
     on_intel do
-      url "https://github.com/troll-master/homebrew-tap/releases/download/v0.0.4/orphisme-v0.0.4-macos_x86_64"
-      sha256 "4835db23e091b28dacad4cdb55ed119e07cf46322dde42c8b210cdcd1bd3ecaf"
+      url "https://github.com/troll-master/homebrew-tap/releases/download/v0.0.5/orphisme-v0.0.5-macos_x86_64"
+      sha256 "e49961bd9af0249365000417eea8d763d1cd5c8feec8062359f044d98b960cfb"
     end
   end
 
