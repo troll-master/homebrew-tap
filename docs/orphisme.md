@@ -105,3 +105,9 @@ Homebrew also installs the same output to
 `$(brew --prefix orphisme)/share/orphisme/LICENSES.txt`; installation extracts the
 runtime into a temporary build directory and does not configure or start the service.
 The four Release assets remain two macOS executables and their SHA-256 files.
+
+## Version numbering
+
+v0.0.4 replaces the retired v0.1.3 release. The Formula uses `version_scheme 1`
+so `brew upgrade` recognizes the new sequence as an update. Use `brew update`
+and `brew upgrade troll-master/tap/orphisme`, then `orphisme restart` after active tasks finish.
