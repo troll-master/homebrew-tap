@@ -32,7 +32,7 @@ orphisme setup
 
 No Tap invitation, GitHub login or download token is required. The Formula uses
 normal HTTPS downloads from fixed [Orphisme Release URLs](https://github.com/troll-master/homebrew-tap/releases)
-and verifies SHA-256. Erlang/OTP and Elixir are bundled; mise and Zig are not required.
+and verifies SHA-256. The Node.js runtime is bundled; a host Node.js installation is not required.
 
 Before running tasks, install Git and the Codex CLI, authenticate Codex, and configure
 tracker credentials in your repository's `WORKFLOW.md`. Homebrew installs Git as a
@@ -64,17 +64,22 @@ before starting the new service. Never run both against the same workspace.
 
 ## Upgrade
 
+Before upgrading, wait for active tasks to finish, then stop the service with the
+currently installed executable. This is required before replacing an older Elixir
+executable with this version. Continue only after stopping succeeds; keep the
+existing settings and managed workspaces. Never run the old and new services
+against the same settings.
+
 ```sh
-brew update
-brew upgrade troll-master/tap/orphisme
+orphisme stop &&
+brew update &&
+brew upgrade troll-master/tap/orphisme &&
+orphisme check &&
 orphisme restart
 ```
 
-The shipped binaries retain older extracted runtimes, so installing or invoking
-a newer CLI does not remove files used by a running service. The service keeps
-its current version until restarted. Restart refuses while work is active;
-wait for that work to finish and retry. Old runtime caches are intentionally
-retained; do not remove them while a service is running.
+The standalone executable bundles Node.js and does not extract a runtime cache.
+Any caches left by older releases remain untouched.
 
 ## Uninstall
 
@@ -84,7 +89,7 @@ orphisme stop
 brew uninstall orphisme
 ```
 
-Settings, repository registrations, workspaces and runtime caches remain on disk.
+Settings, repository registrations, workspaces and legacy runtime caches remain on disk.
 
 ## Download and authentication problems
 
@@ -101,13 +106,13 @@ when using `use_gh_auth`, check `gh auth status` as the service user.
 The standalone executable embeds the project LICENSE and NOTICE (including OpenAI
 Symphony attribution and the modified-project disclaimer) and reviewed notices for
 its bundled dependencies and runtime. Read them with `orphisme licenses`.
-Homebrew also installs the same output to
-`$(brew --prefix orphisme)/share/orphisme/LICENSES.txt`; installation extracts the
-runtime into a temporary build directory and does not configure or start the service.
+Homebrew also writes the same output to
+`$(brew --prefix orphisme)/share/orphisme/LICENSES.txt` during installation without
+configuring or starting the service.
 The four Release assets remain two macOS executables and their SHA-256 files.
 
 ## Version numbering
 
 v0.0.4 replaces the retired v0.1.3 release. The Formula uses `version_scheme 1`
-so `brew upgrade` recognizes the new sequence as an update. Use `brew update`
-and `brew upgrade troll-master/tap/orphisme`, then `orphisme restart` after active tasks finish.
+so `brew upgrade` recognizes the new sequence as an update. Follow the upgrade
+procedure above so the old service stops before Homebrew replaces its executable.
