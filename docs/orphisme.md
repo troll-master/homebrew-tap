@@ -64,17 +64,21 @@ before starting the new service. Never run both against the same workspace.
 
 ## Upgrade
 
+Before upgrading, wait for active tasks to finish, then stop the service with the
+currently installed executable. This is required before replacing an older Elixir
+executable with this version. Continue only after stopping succeeds; keep the
+existing settings and managed workspaces. Never run the old and new services
+against the same settings.
+
 ```sh
-brew update
-brew upgrade troll-master/tap/orphisme
+orphisme stop &&
+brew update &&
+brew upgrade troll-master/tap/orphisme &&
+orphisme check &&
 orphisme restart
 ```
 
 The standalone executable bundles Node.js and does not extract a runtime cache.
-Stop the service before replacing an older Elixir executable with this version.
-Keep the existing settings and managed workspaces, then run `orphisme check`
-before starting it. Never run the old and new services against the same settings.
-Restart refuses while work is active; wait for that work to finish and retry.
 Any caches left by older releases remain untouched.
 
 ## Uninstall
@@ -102,13 +106,13 @@ when using `use_gh_auth`, check `gh auth status` as the service user.
 The standalone executable embeds the project LICENSE and NOTICE (including OpenAI
 Symphony attribution and the modified-project disclaimer) and reviewed notices for
 its bundled dependencies and runtime. Read them with `orphisme licenses`.
-Homebrew also installs the same output to
-`$(brew --prefix orphisme)/share/orphisme/LICENSES.txt`; installation extracts the
-runtime into a temporary build directory and does not configure or start the service.
+Homebrew also writes the same output to
+`$(brew --prefix orphisme)/share/orphisme/LICENSES.txt` during installation without
+configuring or starting the service.
 The four Release assets remain two macOS executables and their SHA-256 files.
 
 ## Version numbering
 
 v0.0.4 replaces the retired v0.1.3 release. The Formula uses `version_scheme 1`
-so `brew upgrade` recognizes the new sequence as an update. Use `brew update`
-and `brew upgrade troll-master/tap/orphisme`, then `orphisme restart` after active tasks finish.
+so `brew upgrade` recognizes the new sequence as an update. Follow the upgrade
+procedure above so the old service stops before Homebrew replaces its executable.
