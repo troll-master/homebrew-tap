@@ -32,7 +32,7 @@ orphisme setup
 
 No Tap invitation, GitHub login or download token is required. The Formula uses
 normal HTTPS downloads from fixed [Orphisme Release URLs](https://github.com/troll-master/homebrew-tap/releases)
-and verifies SHA-256. Erlang/OTP and Elixir are bundled; mise and Zig are not required.
+and verifies SHA-256. The Node.js runtime is bundled; a host Node.js installation is not required.
 
 Before running tasks, install Git and the Codex CLI, authenticate Codex, and configure
 tracker credentials in your repository's `WORKFLOW.md`. Homebrew installs Git as a
@@ -70,11 +70,12 @@ brew upgrade troll-master/tap/orphisme
 orphisme restart
 ```
 
-The shipped binaries retain older extracted runtimes, so installing or invoking
-a newer CLI does not remove files used by a running service. The service keeps
-its current version until restarted. Restart refuses while work is active;
-wait for that work to finish and retry. Old runtime caches are intentionally
-retained; do not remove them while a service is running.
+The standalone executable bundles Node.js and does not extract a runtime cache.
+Stop the service before replacing an older Elixir executable with this version.
+Keep the existing settings and managed workspaces, then run `orphisme check`
+before starting it. Never run the old and new services against the same settings.
+Restart refuses while work is active; wait for that work to finish and retry.
+Any caches left by older releases remain untouched.
 
 ## Uninstall
 
@@ -84,7 +85,7 @@ orphisme stop
 brew uninstall orphisme
 ```
 
-Settings, repository registrations, workspaces and runtime caches remain on disk.
+Settings, repository registrations, workspaces and legacy runtime caches remain on disk.
 
 ## Download and authentication problems
 
